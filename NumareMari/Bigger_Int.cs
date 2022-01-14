@@ -47,13 +47,27 @@ namespace NumareMari
             if(x.pozitiv==true && y.pozitiv==true)
             {
                 int xx=x.data.Length, yy=y.data.Length;
+                int carry = 0;
 
                 while(xx!=0||yy!=0)
                 {
+                    if(x.data[xx]+y.data[yy]>=10)
+                    {
 
+                    }
                 }
             }
             return solutie;
+        }
+
+        public void Reverse()//reverses the elements of MareNum
+        {
+            int[] copie = new int[this.data.Length];
+            for(int i=data.Length; i>0;i--)
+                copie[data.Length - i] = this.data[i];
+            for (int i = 0; i < this.data.Length; i++)
+                this.data[i] = copie[i];
+
         }
         public void Resizing(int a) //reduces the array length up to a
         {
