@@ -44,19 +44,27 @@ namespace NumareMari
         {
             NumMare solutie = new NumMare();
 
-            if(x.pozitiv==true && y.pozitiv==true)
+            int xx = x.data.Length+1, yy = y.data.Length+1, carry = 0, n = 0;
+            if (x.pozitiv==true && y.pozitiv==true)
             {
-                int xx=x.data.Length, yy=y.data.Length;
-                int carry = 0;
-
                 while(xx!=0||yy!=0)
                 {
-                    if(x.data[xx]+y.data[yy]>=10)
-                    {
+                    if (xx == 1)
+                        solutie.data[n] = y.data[yy-1] + carry;
+                    else if (yy == 1)
+                        solutie.data[n] = x.data[xx-1] + carry;
 
-                    }
+
+                    if (x.data[xx] + y.data[yy] >= 10)
+                        carry = 1;
+                    xx--;
+                    yy--;
+                    n++;
                 }
+                
             }
+            solutie.Resizing(n);
+            solutie.Reverse();
             return solutie;
         }
 
