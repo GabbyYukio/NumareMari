@@ -40,52 +40,120 @@ namespace NumareMari
             this.data = new int[int.MaxValue];
         }
 
-        public static NumMare sum(NumMare x, NumMare y)
+        public static NumMare sum(NumMare x, NumMare y)//returns solutie as sum of x and y
         {
             NumMare solutie = new NumMare();
 
-            int xx = x.data.Length+1, yy = y.data.Length+1, carry = 0, n = 0;
-            if (x.pozitiv==true && y.pozitiv==true)
+            int xx = x.data.Length, yy = y.data.Length, n=xx;
+            if (xx < yy)
+                n = yy;
+            int carry = 0;
+            for(int i=0; i<n; i++)
             {
-                while(xx!=0||yy!=0)
+                if (xx < i)
                 {
-                    if (xx == 1)
-                        solutie.data[n] = y.data[yy-1] + carry;
-                    else if (yy == 1)
-                        solutie.data[n] = x.data[xx-1] + carry;
-
-
-                    if (x.data[xx] + y.data[yy] >= 10)
-                        carry = 1;
-                    xx--;
-                    yy--;
-                    n++;
+                    solutie.data[i] = y.data[yy - i] + carry;
+                    carry = 0;
                 }
-                
+                if (yy < i)
+                {
+                    solutie.data[i] = x.data[xx - i] + carry;
+                    carry = 0;
+                }
+                else if (x.data[xx] + y.data[yy] > 10)
+                {
+                    solutie.data[i] = (y.data[yy-i] + x.data[xx-i]) % 10 + carry;
+                    carry = 1;
+                }
+                else
+                {
+                    solutie.data[i] = x.data[xx-i] + y.data[yy-i] + carry;
+                    carry = 0;
+                }
+            }
+            solutie.data[n] = carry;
+            solutie.Resizing(n+1);
+            solutie.Reverse();
+            return solutie;
+        }
+
+        public static NumMare scad(NumMare x, NumMare y)//returneaza x-y 
+        {
+            NumMare solutie = new NumMare();
+            solutie.pozitiv = true;
+
+            int xx = x.data.Length, yy = y.data.Length, n = xx;
+            if (xx < yy)
+                n = yy;
+            int carry = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (xx < i)
+                {
+                    solutie.data[i] = 10-y.data[yy - i] + carry;
+                    solutie.pozitiv = false;
+                    carry = 0;
+                }
+                if (yy < i)
+                {
+                    solutie.data[i] = x.data[xx - i] + carry;
+                    carry = 0;
+                }
+                else if (x.data[xx] - y.data[yy] < 0)
+                {
+                    solutie.data[i] = (10+x.data[xx-i])-y.data[yy-i] + carry;
+                    carry = -1;
+                }
+                else
+                {
+                    solutie.data[i] = x.data[xx - i] - y.data[yy - i] + carry;
+                    carry = 0;
+                }
             }
             solutie.Resizing(n);
             solutie.Reverse();
             return solutie;
         }
 
+
         public void Reverse()//reverses the elements of MareNum
         {
             int[] copie = new int[this.data.Length];
+
             for(int i=data.Length; i>0;i--)
-                copie[data.Length - i] = this.data[i];
+                copie[data.Length - i] = this.data[i-1];
             for (int i = 0; i < this.data.Length; i++)
                 this.data[i] = copie[i];
 
         }
         public void Resizing(int a) //reduces the array length up to a
         {
-            int[] copie = new int[a];
-            for(int i=0;i<a;i++)
-                copie[i] = this.data[i];
             
-            this.data = new int[a];
-            for(int i=0;i<a; i++)
-                this.data[i] = copie[i];
+            if(this.data[a-1]!=0)//checks if the first element of the array wont be 0
+            {
+                int[] copie = new int[a];
+                for (int i=0; i<a; i++)
+                   copie[i]=this.data[i];
+                this.data = new int[a];
+                for (int i = 0; i < a; i++)
+                    this.data[i] = copie[i];
+            }
+            else//if it is, it excludes it
+            {
+                int[] copie = new int[a-1];
+                for (int i=0; i<a-1; i++)
+                    copie[i] = this.data[i];
+                this.data = new int[a];
+                for (int i = 0; i < a - 1; i++)
+                    this.data[i] = copie[i];
+            }
+        }
+        public void Afis()
+        {
+            if (this.pozitiv!=true)
+                Console.Write("-");            
+            for(int i=0;  i<this.data.Length; i++)
+                Console.Write("{0}",this.data[i]);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace NumareMari
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Dati valoarea numarului mare: ");
+            Console.WriteLine("Dati valoarea numarului mare\n>>> ");
             NumMare x= new NumMare(Console.ReadLine());
             
             Console.ReadLine();
