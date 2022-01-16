@@ -13,9 +13,10 @@ namespace NumareMari
 
         public NumMare(string input)
         {
-            this.data=new int[input.Length];
+            
             if(input.Contains("-"))
             {
+                this.data = new int[input.Length-1];
                 this.pozitiv = false;
                 int n = input.Length - 1;
                 for(int i=1;i<n;i++)
@@ -26,6 +27,7 @@ namespace NumareMari
             }
             else
             {
+                this.data = new int[input.Length];
                 this.pozitiv = true;
                 int n = input.Length;
                 for(int i=0; i<n; i++)
@@ -40,7 +42,7 @@ namespace NumareMari
             this.data = new int[int.MaxValue];
         }
 
-        public static NumMare sum(NumMare x, NumMare y)//returns solutie as sum of x and y
+        public static NumMare Sum(NumMare x, NumMare y)//returns solutie as sum of x and y
         {
             NumMare solutie = new NumMare();
 
@@ -77,7 +79,7 @@ namespace NumareMari
             return solutie;
         }
 
-        public static NumMare scad(NumMare x, NumMare y)//returneaza x-y 
+        public static NumMare Substraction(NumMare x, NumMare y)//returns solutie as x-y
         {
             NumMare solutie = new NumMare();
             solutie.pozitiv = true;
@@ -126,7 +128,7 @@ namespace NumareMari
                 this.data[i] = copie[i];
 
         }
-        public void Resizing(int a) //reduces the array length up to a
+        public void Resizing(int a) //reduces the array length up to a (used for sum/ scad)
         {
             
             if(this.data[a-1]!=0)//checks if the first element of the array wont be 0
@@ -148,9 +150,9 @@ namespace NumareMari
                     this.data[i] = copie[i];
             }
         }
-        public void Afis()
+        public void Print()//Afiseaza numarul ca string
         {
-            if (this.pozitiv!=true)
+            if (this.pozitiv!=true)//daca nu e pozitiv arata minus la sfarsit
                 Console.Write("-");            
             for(int i=0;  i<this.data.Length; i++)
                 Console.Write("{0}",this.data[i]);
