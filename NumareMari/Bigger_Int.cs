@@ -116,7 +116,42 @@ namespace NumareMari
             solutie.Reverse();
             return solutie;
         }
+        public static NumMare Multiplication_by_Int(NumMare x, int a)//multiplica numarul x cu a<10 si il returneaza ca un nou obiect
+        {
+            NumMare solutie=new NumMare();
+            int xx = x.data.Length, carry = 0;
+            for(int i=0; i<xx; i++)
+            {
+                if(x.data[xx-i]*a>10)
+                {
+                    solutie.data[i] = (x.data[xx - i] * a) % 10+carry;
+                    carry = (x.data[xx - i] * a) / 10;
+                }
+                else
+                {
+                    solutie.data[i] = x.data[xx - i] + carry;
+                    carry = 0;
+                }
+            }
+            solutie.data[xx] = carry;
+            solutie.Resizing(xx);
+            solutie.Reverse();
+            return solutie;
+        }
 
+        public NumMare Multiplication_by_NumMare(NumMare x, NumMare y)
+        {
+            NumMare Solutie = new NumMare();
+            int xx = x.data.Length, yy=y.data.Length, n=xx;
+            if (xx < yy)
+                n = yy;
+
+            for(int i=0; i<n; i++)
+            {
+                yy = y.data[yy - i];
+
+            }
+        }
 
         public void Reverse()//reverses the elements of MareNum
         {
