@@ -167,8 +167,8 @@ namespace NumareMari
                 n = yy;
                 for (int i = 0; i < n; i++)
                 {
-                    sub = y.data[yy - i];
-                    placeholder = Multiplication_by_Digit(x, sub);
+                    sub = x.data[xx - i];
+                    placeholder = Multiplication_by_Digit(y, sub);
                     pow = Convert.ToInt32(Math.Pow(10, i));
                     Solutie = Sum(Multiplication_by_10Pow(placeholder, pow), Solutie);
                 }
@@ -177,8 +177,8 @@ namespace NumareMari
             {
                 for (int i = 0; i < n; i++)
                 {
-                    sub = x.data[xx - i];
-                    placeholder = Multiplication_by_Digit(y, sub);
+                    sub = y.data[yy - i];
+                    placeholder = Multiplication_by_Digit(x, sub);
                     pow = Convert.ToInt32(Math.Pow(10, i));
                     Solutie = Sum(Multiplication_by_10Pow(placeholder, pow), Solutie);
                 }
