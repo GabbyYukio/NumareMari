@@ -10,7 +10,7 @@ namespace NumareMari
     {
         public int[] data;
         public bool pozitiv;
-
+        //:::::::::::::::Constructori:
         public NumMare(string input)
         {
             
@@ -42,6 +42,7 @@ namespace NumareMari
             this.data = new int[int.MaxValue];
         }
 
+        //:::::::::::::::::::::::Operatii: 
         public static NumMare Sum(NumMare x, NumMare y)//returns solutie as sum of x and y
         {
             NumMare solutie = new NumMare();
@@ -73,8 +74,8 @@ namespace NumareMari
                     carry = 0;
                 }
             }
-            solutie.data[n] = carry;
-            solutie.Resizing(n+1);
+            if (carry != 0)
+                solutie.data[n] = carry;
             solutie.Reverse();
             return solutie;
         }
@@ -116,9 +117,10 @@ namespace NumareMari
             solutie.Reverse();
             return solutie;
         }
-        public static NumMare Multiplication_by_Int(NumMare x, int a)//multiplica numarul x cu a<10 si il returneaza ca un nou obiect
+        public static NumMare Multiplication_by_Digit(NumMare x, int a)//multiplica numarul x cu a<10 si il returneaza ca un nou obiect
         {
-            NumMare solutie=new NumMare();
+
+            NumMare solutie = new NumMare();
             int xx = x.data.Length, carry = 0;
             for(int i=0; i<xx; i++)
             {
@@ -138,19 +140,49 @@ namespace NumareMari
             solutie.Reverse();
             return solutie;
         }
-
-        public NumMare Multiplication_by_NumMare(NumMare x, NumMare y)
+        public static NumMare Multiplication_by_10Pow(NumMare x, int a)//multiplica NumMare cu 10 (accepta doar numere 10 la putere)
         {
-            NumMare Solutie = new NumMare();
-            int xx = x.data.Length, yy=y.data.Length, n=xx;
+            int n=x.data.Length;
+            NumMare solutie = new NumMare();
+
+            Copy(x, solutie);
+            while(a%10==0)
+            {
+                solutie.data[n] = 0;
+                n++;
+                a /= 10;
+            }
+            solutie.Resizing(n);
+
+            return solutie;
+        }
+
+        public static NumMare Multiplication_by_NumMare(NumMare x, NumMare y)
+        {
+            NumMare Solutie = new NumMare("0");
+            NumMare placeholder = new NumMare();
+            int xx = x.data.Length, yy=y.data.Length, n=xx, sub, pow=0;
             if (xx < yy)
                 n = yy;
 
             for(int i=0; i<n; i++)
             {
-                yy = y.data[yy - i];
-
+                if(xx==n)
+                {
+                    sub = y.data[yy - i];
+                    placeholder = Multiplication_by_Digit(x, sub);
+                    pow = Convert.ToInt32(Math.Pow(10, i));
+                    Solutie = Sum(Multiplication_by_10Pow(placeholder, pow), Solutie);
+                }
+                else if(yy==n)
+                {
+                    sub = x.data[xx - i];
+                    placeholder = Multiplication_by_Digit(y, sub);
+                    pow = Convert.ToInt32(Math.Pow(10, i));
+                    Solutie = Sum(Multiplication_by_10Pow(placeholder, pow), Solutie);
+                }
             }
+            return Solutie;
         }
 
         public void Reverse()//reverses the elements of MareNum
@@ -163,7 +195,10 @@ namespace NumareMari
                 this.data[i] = copie[i];
 
         }
-        public void Resizing(int a) //reduces the array length up to a (used for sum/ scad)
+
+
+        //:::::::::::::::::Proprietati pentru NumMare
+        public void Resizing(int a) //reduces the array length up to a 
         {
             
             if(this.data[a-1]!=0)//checks if the first element of the array wont be 0
@@ -191,6 +226,12 @@ namespace NumareMari
                 Console.Write("-");            
             for(int i=0;  i<this.data.Length; i++)
                 Console.Write("{0}",this.data[i]);
+        }
+        public static void Copy(NumMare x, NumMare y)//copiaza elementele din x in y, cu y avand intMaxValue ca si numar de elemente
+        {
+            y.data = new int[int.MaxValue];
+            for (int i = 0; i < x.data.Length; i++)
+                y.data[i] = x.data[i];
         }
     }
 }
