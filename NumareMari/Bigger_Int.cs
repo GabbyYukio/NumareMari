@@ -43,6 +43,7 @@ namespace NumareMari
         }
 
         //:::::::::::::::::::::::Operatii: 
+
         public static NumMare Sum(NumMare x, NumMare y)//returns solutie as sum of x and y
         {
             NumMare solutie = new NumMare();
@@ -97,7 +98,7 @@ namespace NumareMari
                     solutie.pozitiv = false;
                     carry = 0;
                 }
-                if (yy < i)
+                else if (yy < i)
                 {
                     solutie.data[i] = x.data[xx - i] + carry;
                     carry = 0;
@@ -186,6 +187,9 @@ namespace NumareMari
             return Solutie;
         }
 
+
+
+        //:::::::::::::::::Proprietati pentru NumMare
         public void Reverse()//reverses the elements of MareNum
         {
             int[] copie = new int[this.data.Length];
@@ -195,10 +199,7 @@ namespace NumareMari
             for (int i = 0; i < this.data.Length; i++)
                 this.data[i] = copie[i];
 
-        }
-
-
-        //:::::::::::::::::Proprietati pentru NumMare
+        }        
         public void Resizing(int a) //reduces the array length up to a 
         {
             
