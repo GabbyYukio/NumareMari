@@ -163,18 +163,19 @@ namespace NumareMari
             NumMare placeholder = new NumMare();
             int xx = x.data.Length, yy=y.data.Length, n=xx, sub, pow=0;
             if (xx < yy)
-                n = yy;
-
-            for(int i=0; i<n; i++)
             {
-                if(xx==n)
+                n = yy;
+                for (int i = 0; i < n; i++)
                 {
                     sub = y.data[yy - i];
                     placeholder = Multiplication_by_Digit(x, sub);
                     pow = Convert.ToInt32(Math.Pow(10, i));
                     Solutie = Sum(Multiplication_by_10Pow(placeholder, pow), Solutie);
                 }
-                else if(yy==n)
+            }
+            else
+            {
+                for (int i = 0; i < n; i++)
                 {
                     sub = x.data[xx - i];
                     placeholder = Multiplication_by_Digit(y, sub);
