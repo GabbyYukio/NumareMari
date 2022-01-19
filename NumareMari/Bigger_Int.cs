@@ -191,14 +191,14 @@ namespace NumareMari
 
 
         //:::::::::::::::::Proprietati pentru NumMare
-        public void Reverse()//reverses the elements of MareNum
+        private void Reverse()//reverses the elements of MareNum
         {
             int[] copie = this.data;
             for (int i = 0; i < this.data.Length; i++)
                 this.data[i] = copie[this.data.Length-i];
 
         }        
-        public void Resizing(int a) //reduce vectorul NumMare curent pana la variabila a
+        private void Resizing(int a) //reduce vectorul NumMare curent pana la variabila a
         {
 
             int[] copie = this.data;

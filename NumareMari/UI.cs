@@ -8,36 +8,29 @@ namespace NumareMari
 {
     class UI
     {
-        private static void adunare()
+        private static string citire(string mesaj)
         {
             string input;
-            Console.WriteLine("Dati primul numar ");
-            input= Console.ReadLine();
+            Console.WriteLine(mesaj);
+            Console.Write(">>> ");
+            input = Console.ReadLine();
+            return input;
+        }
+        private static void adunare()
+        {
+            
+            NumMare a = new NumMare(citire("Va rog dati primul numar"));
+            NumMare b = new NumMare(citire("Va rog dati al doilea numar"));
 
-            NumMare a = new NumMare(input);
-
-            Console.WriteLine("Dati al doilea numar ");
-            input= Console.ReadLine();
-
-            NumMare b= new NumMare(input);
-
-            NumMare solutie=NumMare.Sum(a,b);
+            NumMare solutie =NumMare.Sum(a,b);
             Console.Write("Numarul obtinut este: ");
             solutie.Print();
         }
 
         private static void scadere()
         {
-            string input;
-            Console.WriteLine("Dati primul numar ");
-            input = Console.ReadLine();
-
-            NumMare a = new NumMare(input);
-
-            Console.WriteLine("Dati al doilea numar ");
-            input = Console.ReadLine();
-
-            NumMare b = new NumMare(input);
+            NumMare a = new NumMare(citire("Dati va rog primul numar "));
+            NumMare b = new NumMare(citire("Va rog dati al doilea numar"));
 
             NumMare solutie = NumMare.Substraction(a, b);
             Console.Write("Numarul obtinut este: ");
@@ -45,32 +38,18 @@ namespace NumareMari
         }
         private static void inmultire()
         {
-            string input;
-            Console.WriteLine("Dati primul numar ");
-            input = Console.ReadLine();
+            NumMare x = new NumMare(citire("Dati va rog primul numar "));
+            int z = int.Parse(citire("Va rog dati al doilea numar (mai mic decat 10) "));
 
-            NumMare x= new NumMare(input);
-
-            Console.WriteLine("Dati al doilea numar (mai mic decat 10)");
-            int a =int.Parse( Console.ReadLine());
-
-            NumMare solutie = NumMare.Multiplication_by_Digit(x, a);
+            NumMare solutie = NumMare.Multiplication_by_Digit(x, z);
             Console.Write("Rezultatul este: ");
             solutie.Print();
         }
 
         private static void inmultire_mare()
         {
-            string input;
-            Console.WriteLine("Dati primul numar ");
-            input = Console.ReadLine();
-
-            NumMare a = new NumMare(input);
-
-            Console.WriteLine("Dati al doilea numar ");
-            input = Console.ReadLine();
-
-            NumMare b = new NumMare(input);
+            NumMare a = new NumMare(citire("Dati va rog primul numar "));
+            NumMare b = new NumMare(citire("Va rog dati al doilea numar"));
 
             NumMare solutie = NumMare.Multiplication_by_NumMare(a, b);
             Console.Write("Numarul obtinut este: ");
@@ -81,11 +60,10 @@ namespace NumareMari
         private static void printmenu()
         {
             Console.WriteLine("Alegeti dintre optiunile: ");
-            Console.WriteLine("+ Adunarea a doua numere mari");
-            Console.WriteLine("- Scaderea a doua numere mari");
-            Console.WriteLine("* Inmultirea a unui numar mare cu unui numar mare");
-            Console.WriteLine("** Inmultirea a doua numere mari");
-            
+            Console.WriteLine("1 Adunarea a doua numere mari");
+            Console.WriteLine("2 Scaderea a doua numere mari");
+            Console.WriteLine("3 Inmultirea unei cifre cu un numar mare");
+            Console.WriteLine("4 Inmultirea a doua numere mari");   
         }
 
         private static void alegere()
@@ -95,16 +73,16 @@ namespace NumareMari
 
             switch(operand)
             {
-                case "+":
+                case "1":
                     adunare();
                     break;
-                case "-":
+                case "2":
                     scadere();
                     break;
-                case "*":
+                case "3":
                     inmultire();
                     break;
-                case "**":
+                case "4":
                     inmultire_mare();
                     break;
                 default:
